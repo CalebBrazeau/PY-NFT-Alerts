@@ -1,3 +1,4 @@
+from cgi import print_directory
 import Get_Info as info
 import Get_Con as conn
 import Send_Alert as alert
@@ -6,7 +7,7 @@ import creds
 # Initialize array to store retreived information
 arr = []
 # Name of the collection to retreive information from
-collection_name = "mintin"
+collection_name = "mintin".replace(" ", "_")
 # Maximum price of NFT to add to array
 maxSOL = 2
 
@@ -21,9 +22,9 @@ def main():
 
     while offset < listedCount:
         # Get collection using collection name and offset to eventually retreive all listed NFT's
-        returnData = conn.getConnection("/v2/collections/" + collection_name + "/listings?offset=" + str(offset) + "&limit=20")
+        data = conn.getConnection("/v2/collections/" + collection_name.lower() + "/listings?offset=" + str(offset) + "&limit=20")
         # Loop through returned request data
-        for x in returnData:
+        for x in data:
             # If the price of the current element is less than the maximum set
             if(x["price"] <= maxSOL):
                 # Add it to the array.
@@ -45,7 +46,7 @@ def main():
     The following prices were alerted for %s: %s
     """ % (collection_name, formatArr(arr))
     # Send the alert
-    alert.sendAlert(subject, alert_content, creds.email)
+    # alert.sendAlert(subject, alert_content, creds.email)
 
 
 def formatArr(arr):
@@ -68,6 +69,4 @@ def formatArr(arr):
 def arrSortKey(e):
     """Sort array of retreived NFT's from lowest to highest price"""
     return e["price"]
-
-
-main()
+# main()
