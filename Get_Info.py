@@ -40,6 +40,37 @@ def getLaunchpadInfo():
                     'size': x['size'],
                     'launchTime': launch_time
                 })
-        except:
+        except: # Throws if there is no launch date
             print("No time :/")
+    return arr
+
+
+def getCollectionListed(name, max):
+    """Takes in name and max number of SOL and returns array containing all listings under or equal to maximum amount of SOL"""
+    # Initialize empty array
+    arr = []
+    # Get listing information from API for collection
+    listingInfo = getListingInfo(name)
+    # Get listed count from returned data
+    listedCount = listingInfo["listedCount"]
+
+    # Initialize offset variable used in connection request
+    offset = 0
+
+    while offset < listedCount:
+        # Get collection using collection name and offset to eventually retreive all listed NFT's
+        data = conn.getConnection("/v2/collections/" + name.lower() + "/listings?offset=" + str(offset) + "&limit=20")
+        # Loop through returned request data
+        for x in data:
+            # If the price of the current element is less than the maximum set
+            if(x["price"] <= max):
+                # Add it to the array.
+                arr.append(
+                    {
+                        'price': x["price"],
+                        'link': 'https://magiceden.io/item-details/' + x["tokenMint"]
+                    }
+                )
+        # Increase offset to eventually end loop
+        offset += 20
     return arr
