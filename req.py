@@ -7,7 +7,6 @@ collection_name = "mintin".replace(" ", "_")
 # Maximum price of NFT to add to array
 maxSOL = 2
 
-
 def main():
     # Array containing specified collection return data
     arr = info.getCollectionListed(collection_name, maxSOL)
@@ -26,7 +25,16 @@ def main():
 
 
 def formatArr(arr):
-    """Takes in an array and formats the objects to a more user friendly string"""
+    """
+    Takes in an array and formats the objects to a more user friendly string
+    Input: [{'price': 2, 'link': 'www.example.com'}, {'price': 2, 'link': 'www.example.com'}]
+    Return: -------------------------------------------------------------
+            price: 2
+            link: www.example.com
+            -------------------------------------------------------------
+            price: 2
+            link: www.example.com
+    """
     # Initialize string
     formatedArr = ""
     # Loop through each element of the array
