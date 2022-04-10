@@ -5,7 +5,7 @@ import datetime
 def getListingInfo(collection_name):
     """Takes in a collection name and returns listing stats for specified collection"""
     # Get and return API response for collection stats
-    return conn.getConnection("/v2/collections/" + collection_name + "/stats")
+    return conn.getConnection("/v2/collections/" + collection_name.lower() + "/stats")
 
 
 def getTokenInformation(token):
@@ -50,7 +50,7 @@ def getCollectionListed(name, max):
     # Initialize empty array
     arr = []
     # Get listing information from API for collection
-    listingInfo = getListingInfo(name)
+    listingInfo = getListingInfo(name.lower())
     # Get listed count from returned data
     listedCount = listingInfo["listedCount"]
 
