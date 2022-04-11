@@ -2,10 +2,16 @@ import http.client
 import json
 
 def getConnection(link):
-    """Return request data from magiceden API for specified link"""
+    """
+    Takes in last part of magic eden api and returns API response data
+
+    link = /v2/launchpad/collections?offset=0&limit=200
+
+    Returns json object containing API response
+    """
     # Open intial connection to magiceden API
     conn = http.client.HTTPSConnection("api-mainnet.magiceden.dev")
-    # Send request for specified link (/v2/tokens/{token})
+    # Send request for specified link
     conn.request("GET", link, "", {})
     # Get request response
     res = conn.getresponse()
