@@ -12,17 +12,19 @@ def main():
     # Array containing specified collection return data
     arr = info.getCollectionListed(collection_name, maxSOL)
 
-    # Sort array using price as a key
-    arr.sort(key=arrSortKey)
+    # Check if return is empty before sending alert
+    if(len(arr) > 0):
+        # Sort array using price as a key
+        arr.sort(key=arrSortKey)
 
-    # Subject for alert
-    subject = "%s listing alerted for %s Collection!" % (len(arr), collection_name)
-    # Body for alert containing the array of retreived NFT's
-    alert_content = """\n
-    The following prices were alerted for %s: %s
-    """ % (collection_name, formatArr(arr))
-    # Send the alert
-    alert.sendAlert(subject, alert_content, creds.email)
+        # Subject for alert
+        subject = "%s listing alerted for %s Collection!" % (len(arr), collection_name)
+        # Body for alert containing the array of retreived NFT's
+        alert_content = """\n
+        The following prices were alerted for %s: %s
+        """ % (collection_name, formatArr(arr))
+        # Send the alert
+        alert.sendAlert(subject, alert_content, creds.email)
 
 
 def formatArr(arr):
