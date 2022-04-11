@@ -67,7 +67,8 @@ def getCollectionListed(name, max):
                 # Add it to the array.
                 arr.append(
                     {
-                        'price': x["price"],
+                        'name': getTokenInformation(x['tokenMint'])['name'],
+                        'price': str(x["price"]) + " SOL",
                         'link': 'https://magiceden.io/item-details/' + x["tokenMint"]
                     }
                 )
