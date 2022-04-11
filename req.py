@@ -7,6 +7,7 @@ collection_name = "mintin".replace(" ", "_")
 # Maximum price of NFT to add to array
 maxSOL = 2
 
+
 def main():
     # Array containing specified collection return data
     arr = info.getCollectionListed(collection_name, maxSOL)
@@ -15,7 +16,7 @@ def main():
     arr.sort(key=arrSortKey)
 
     # Subject for alert
-    subject = "Alert for %s Collection!" % (collection_name)
+    subject = "%s listing alerted for %s Collection!" % (len(arr), collection_name)
     # Body for alert containing the array of retreived NFT's
     alert_content = """\n
     The following prices were alerted for %s: %s
