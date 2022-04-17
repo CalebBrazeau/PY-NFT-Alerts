@@ -42,18 +42,18 @@ def formatArr(arr):
             link: www.example.com
     """
     # Initialize string
-    formatedArr = ""
+    formated_arr = ""
     # Loop through each element of the array
     for x in arr:
-        # Append a seperator to formatedArr for easier readability
-        formatedArr += "\n------------------------------------------------------------------------------------"
+        # Append a seperator to formated_arr for easier readability
+        formated_arr += "\n------------------------------------------------------------------------------------"
         # Loop through each element's keys
         for y in x.keys():
-            # Add each key with a prepended new line and keyname to formatedArr
-            formatedArr += "\n%s: %s" % (y,x[y])
-    print(formatedArr) # TEMP
+            # Add each key with a prepended new line and keyname to formated_arr
+            formated_arr += "\n%s: %s" % (y,x[y])
+    print(formated_arr) # TEMP
     # Return the formated array
-    return formatedArr
+    return formated_arr
 
 
 def arrSortKey(e):
