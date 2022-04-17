@@ -5,7 +5,7 @@ import creds
 # Name of the collection to retreive information from
 collections = ["mintin"]
 # Maximum price of NFT to add to array
-maxSOL = 2
+max_SOL = 2
 
 send_alerts = True
 
@@ -13,7 +13,7 @@ send_alerts = True
 def main():
     for x in collections:
         # Array containing specified collection return data
-        arr = info.getCollectionListed(x.replace(" ", "_"), maxSOL)
+        arr = info.getCollectionListed(x.replace(" ", "_"), max_SOL)
 
         # Check if return is empty before sending alert
         if(send_alerts and len(arr) > 0):
@@ -27,7 +27,7 @@ def main():
             # Send the alert
             alert.sendAlert(subject, alert_content, creds.email)
         else:
-            print("No listings found under %s SOL!" % maxSOL)
+            print("No listings found under %s SOL!" % max_SOL)
 
 
 def formatArr(arr):

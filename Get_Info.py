@@ -50,14 +50,14 @@ def getCollectionListed(name, max):
     # Initialize empty array
     arr = []
     # Get listing information from API for collection
-    listingInfo = getListingInfo(name.lower())
+    listing_info = getListingInfo(name.lower())
     # Get listed count from returned data
-    listedCount = listingInfo["listedCount"]
+    listed_count = listing_info["listedCount"]
 
     # Initialize offset variable used in connection request
     offset = 0
 
-    while offset < listedCount:
+    while offset < listed_count:
         # Get collection using collection name and offset to eventually retreive all listed NFT's
         data = conn.getConnection("/v2/collections/" + name.lower() + "/listings?offset=" + str(offset) + "&limit=20")
         # Loop through returned request data
