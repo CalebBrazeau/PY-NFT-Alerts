@@ -3,28 +3,31 @@ import Send_Alert as alert
 import creds
 
 # Name of the collection to retreive information from
-collection_name = "mintin".replace(" ", "_")
+collections = ["mintin"]
 # Maximum price of NFT to add to array
 maxSOL = 2
 
+send_alerts = True
+
 
 def main():
-    # Array containing specified collection return data
-    arr = info.getCollectionListed(collection_name, maxSOL)
+    for x in collections:
+        # Array containing specified collection return data
+        arr = info.getCollectionListed(x.replace(" ", "_"), maxSOL)
 
-    # Check if return is empty before sending alert
-    if(len(arr) > 0):
-        # Sort array using price as a key
-        arr.sort(key=arrSortKey)
+        # Check if return is empty before sending alert
+        if(send_alerts and len(arr) > 0):
+            # Sort array using price as a key
+            arr.sort(key=arrSortKey)
 
-        # Subject for alert
-        subject = "%s listing alerted for %s Collection!" % (len(arr), collection_name)
-        # Body for alert containing the array of retreived NFT's
-        alert_content = """\n
-        The following prices were alerted for %s: %s
-        """ % (collection_name, formatArr(arr))
-        # Send the alert
-        alert.sendAlert(subject, alert_content, creds.email)
+            # Subject for alert
+            subject = "%s listing alerted for %s Collection!" % (len(arr), x)
+            # Body for alert containing the array of retreived NFT's
+            alert_content = """\nThe following prices were alerted for %s: %s""" % (x, formatArr(arr))
+            # Send the alert
+            alert.sendAlert(subject, alert_content, creds.email)
+        else:
+            print("No listings found under %s SOL!" % maxSOL)
 
 
 def formatArr(arr):
