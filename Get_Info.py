@@ -1,7 +1,6 @@
 import Get_Con as conn
 import datetime
 
-
 def getListingInfo(collection_name):
     """Takes in a collection name and returns listing stats for specified collection"""
     # Get and return API response for collection stats
@@ -25,23 +24,24 @@ def getLaunchpadInfo():
     for x in data:
         try:
             # Extract year, month, and day information from each element
-            y,m,d = x["launchDatetime"].split("-")
+            y,m,d = x["launchDatetime"].split('-')
+            h,min,s = d.split('T')[1].split(':')
             # Create datetime variable using extracted year, month, and day
-            launch_time = datetime.datetime(int(y),int(m),int(d.split("T")[0]))
+            launch_time = datetime.datetime(int(y),int(m),int(d.split('T')[0]),int(h),int(min),int(s.split('.')[0]))
             # Get current time for comparison
             now = datetime.datetime.now()
-
             # If the launch time of the collection is greater than the current time
             if(launch_time > now):
                 # Append the collection to the array
                 arr.append({
                     'name': x['name'],
+                    'description': x['description'],
                     'price': x['price'],
                     'size': x['size'],
                     'launchTime': launch_time
                 })
         except: # Throws if there is no launch date
-            print("No time :/")
+            console.print("No time found!")
     return arr
 
 
@@ -53,7 +53,6 @@ def getCollectionListed(name, max):
     listing_info = getListingInfo(name.lower())
     # Get listed count from returned data
     listed_count = listing_info["listedCount"]
-
     # Initialize offset variable used in connection request
     offset = 0
 
