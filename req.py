@@ -32,8 +32,7 @@ def setup():
 
         action = input('Action: ')
         if(action.__contains__('0')):
-            print("Action 1")
-            # check_listings()
+            check_collection_information()
         elif(action.__contains__('1')):
             print("Action 2")
             # check_launchpad()
@@ -48,6 +47,28 @@ def setup():
             # generate_collection()
 
         do_again = input('Select another action? (Y/N):')
+
+
+def check_collection_information():
+    ## Test List:        Mintin, yetai, lost souls, sol drunks      ,      DegenDoJo, succuverse, bulldog_billionaiRes,   bullDog doghouses    , degods
+    console.print('[green underline]Check Collection(s) Information')
+    console.print('[blue]Enter collection name(s) (seperate multiple with commas):')
+    collections = input().split(',')
+
+    with console.status('Retreiving Collections...'):
+        for x in collections:
+            # TODO - Check for empty strings
+            listing_info = info.getListingInfo(x.strip().replace(' ', '_').lower())
+            
+            # console.print(listing_info)
+
+            if(len(listing_info) > 1):
+                console.rule(listing_info['symbol'])
+                console.print('[bold]Floor Price[/bold]: %s' %(listing_info['floorPrice'] / 1000000000))
+                console.print('[bold]Listed Count[/bold]: %s' %(listing_info['listedCount']))
+                if(len(listing_info) >= 5):
+                    console.print('[bold]Average Price (24hr): %s' %(listing_info['avgPrice24hr'] / 1000000000))
+                console.print('[bold]Volume All Time[/bold]: %s' %(listing_info['volumeAll'] / 1000000000))
 
 
 def main():
