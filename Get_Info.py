@@ -1,5 +1,6 @@
 import Get_Con as conn
 import datetime
+from console import console
 
 def getListingInfo(collection_name):
     """Takes in a collection name and returns listing stats for specified collection"""
@@ -41,7 +42,7 @@ def getLaunchpadInfo():
                     'launchTime': launch_time
                 })
         except: # Throws if there is no launch date
-            console.print("No time found!")
+            console.print("[red]No time found!")
     return arr
 
 
@@ -55,22 +56,22 @@ def getCollectionListed(name, max):
     listed_count = listing_info["listedCount"]
     # Initialize offset variable used in connection request
     offset = 0
-
-    while offset < listed_count:
-        # Get collection using collection name and offset to eventually retreive all listed NFT's
-        data = conn.getConnection("/v2/collections/" + name.lower() + "/listings?offset=" + str(offset) + "&limit=20")
-        # Loop through returned request data
-        for x in data:
-            # If the price of the current element is less than the maximum set
-            if(x["price"] <= max):
-                # Add it to the array.
-                arr.append(
-                    {
-                        'name': getTokenInformation(x['tokenMint'])['name'],
-                        'price': str(x["price"]) + " SOL",
-                        'link': 'https://magiceden.io/item-details/' + x["tokenMint"]
-                    }
-                )
-        # Increase offset to eventually end loop
-        offset += 20
+    with console.status("Retreiving Listings..."):
+        while offset < listed_count:
+            # Get collection using collection name and offset to eventually retreive all listed NFT's
+            data = conn.getConnection("/v2/collections/" + name.lower() + "/listings?offset=" + str(offset) + "&limit=20")
+            # Loop through returned request data
+            for x in data:
+                # If the price of the current element is less than the maximum set
+                if(x["price"] <= max):
+                    # Add it to the array.
+                    arr.append(
+                        {
+                            'name': getTokenInformation(x['tokenMint'])['name'],
+                            'price': str(x["price"]) + " SOL",
+                            'link': 'https://magiceden.io/item-details/' + x["tokenMint"]
+                        }
+                    )
+            # Increase offset to eventually end loop
+            offset += 20
     return arr
