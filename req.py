@@ -34,17 +34,13 @@ def setup():
         if(action.__contains__('0')):
             check_collection_information()
         elif(action.__contains__('1')):
-            print("Action 2")
-            # check_launchpad()
+            check_launchpad()
         elif(action.__contains__('2')):
-            print("Action 3")
-            # check_listed()
+            check_listed()
         elif(action.__contains__('3')):
-            print("Action 4")
-            # set_up_alerts()
+            set_up_alerts()
         elif(action.__contains__('4')):
-            print("Action 5")
-            # generate_collection()
+            generate_collection()
 
         do_again = input('Select another action? (Y/N):')
 
@@ -114,6 +110,17 @@ def check_listed():
         table.add_row('[bold]%s' %(x['name']), '[bold]Price:[/bold] %s\n[bold]Link:[/bold] %s' %(x['price'], x['link']))
         console.print(table)
     console.print('%s listings found under %s SOL' %(len(listings), max_sol))
+
+
+# TODO - Make it work
+def set_up_alerts():
+    # TODO - Use subprocess to set up alerts on linux
+    # TODO - Figure out how to setup alerts on Window
+    console.print('[green underline]Set up Alerts')
+
+# TODO - Make it work
+def generate_collection():
+    console.print('[green underline]Generate Collection')
 
 
 def main():
