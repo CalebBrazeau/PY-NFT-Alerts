@@ -71,6 +71,24 @@ def check_collection_information():
                 console.print('[bold]Volume All Time[/bold]: %s' %(listing_info['volumeAll'] / 1000000000))
 
 
+def check_launchpad():
+    console.print('[green underline]Check Launchpad')
+    launch_info = info.getLaunchpadInfo()
+
+    for x in launch_info:
+        console.rule('[bold]%s' %(x['name']))
+        table = Table(box=box.HEAVY_EDGE, show_lines=True, expand=True)
+
+        table.add_column('')
+        table.add_column('')
+
+        table.add_row('[bold]Description:[/bold]', str(x['description']))
+        table.add_row('[bold]Price:[/bold]', str(x['price']))
+        table.add_row('[bold]Size:[/bold]', str(x['size']))
+        table.add_row('[bold]Launch Time:[/bold]', str(x['launchTime']))
+        console.print(table)
+
+
 def main():
     for x in collections:
         # Array containing specified collection return data
