@@ -89,6 +89,33 @@ def check_launchpad():
         console.print(table)
 
 
+def check_listed():
+    console.print('[green underline]Check Listed')
+    console.print('[blue]Enter collection name(s) (seperate mutliple with commas):')
+    collections = input().split(',')
+
+    console.print('[blue]Enter max SOL to be included or \'fp\' for floorprice:')
+    max_sol = input()
+
+    if(max_sol.lower().__contains__('fp')):
+        max_sol = info.getListingInfo(collections[0].replace(' ', '_'))['floorPrice'] / 1000000000
+        console.print('[blue]Using current floor price of %s SOL' %(max_sol))
+    
+    listings = info.getCollectionListed(collections[0].replace(' ', '_'), float(max_sol))
+    listings.sort(key=arrSortKey)
+
+    for x in listings:
+        console.rule('')
+        table = Table(box=box.HEAVY_EDGE, show_lines=True, expand=True)
+
+        table.add_column('Name')
+        table.add_column('Information')
+
+        table.add_row('[bold]%s' %(x['name']), '[bold]Price:[/bold] %s\n[bold]Link:[/bold] %s' %(x['price'], x['link']))
+        console.print(table)
+    console.print('%s listings found under %s SOL' %(len(listings), max_sol))
+
+
 def main():
     for x in collections:
         # Array containing specified collection return data
