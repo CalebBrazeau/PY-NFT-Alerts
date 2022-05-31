@@ -1,6 +1,9 @@
 import Get_Info as info
 import Send_Alert as alert
 import creds
+from console import console
+from rich.table import Table
+from rich import box
 
 # Name of the collection to retreive information from
 collections = ['mintin']
@@ -8,6 +11,43 @@ collections = ['mintin']
 max_SOL = 2
 
 send_alerts = True
+
+
+def setup():
+    do_again = 'y'
+    while(do_again == 'y' or do_again == 'Y'):
+        console.rule('[bold]Select an Action')
+        table = Table(box=box.HEAVY_EDGE, show_lines=True, expand=True)
+
+        table.add_column('Action')
+        table.add_column('Description')
+
+        table.add_row('[bold]0. Check Collection(s) Information', 'Check listings for a specified collection.')
+        table.add_row('[bold]1. Check Launchpad', 'Check current and upcoming launches on Magic Eden.')
+        # TODO - Rename 0 and 2 to be more appropriate
+        table.add_row('[bold]2. Check Listed', 'Set up floor price alerts for specified collections')
+        table.add_row('[bold]3. Floor Price Alerts', 'Set up or view floor price alerts for specified collections')
+        table.add_row('[bold]4. Generate Collection', 'Generate NFT collection')
+        console.print(table)
+
+        action = input('Action: ')
+        if(action.__contains__('0')):
+            print("Action 1")
+            # check_listings()
+        elif(action.__contains__('1')):
+            print("Action 2")
+            # check_launchpad()
+        elif(action.__contains__('2')):
+            print("Action 3")
+            # check_listed()
+        elif(action.__contains__('3')):
+            print("Action 4")
+            # set_up_alerts()
+        elif(action.__contains__('4')):
+            print("Action 5")
+            # generate_collection()
+
+        do_again = input('Select another action? (Y/N):')
 
 
 def main():
@@ -60,4 +100,4 @@ def arrSortKey(e):
     '''Sort array of retreived NFT's from lowest to highest price'''
     return e['price']
 
-main()
+setup()
