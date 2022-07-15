@@ -4,6 +4,7 @@ from rich.table import Table
 from rich import box
 
 
+# Add ability to export results
 def setup():
     do_again = 'y'
     while(do_again == 'y' or do_again == 'Y'):
@@ -61,7 +62,7 @@ def check_collection_information():
 def check_launchpad():
     console.print('[green underline]Check Launchpad')
     launch_info = info.getLaunchpadInfo()
-
+    # return launch_info
     for x in launch_info:
         console.rule('[bold]%s' %(x['name']))
         table = Table(box=box.HEAVY_EDGE, show_lines=True, expand=True)
